@@ -9,14 +9,14 @@ using ViewModels;
 
 namespace UniversityMVC.Controllers
 {
-    public class CoursesController : Controller
+    public class DepartamentsController : Controller
     {
-        // GET: Courses
+        // GET: Departaments
         public ActionResult Index()
         {
             try
             {
-                var list = CourseService.GetAllCourses();
+                var list = DepartamentService.GetAllDepartaments();
                 return View(list);
             }
             catch
@@ -25,26 +25,26 @@ namespace UniversityMVC.Controllers
             }
         }
 
-        // GET: Courses/Details/5
+        // GET: Departaments/Details/5
         public ActionResult Details(int id)
         {
-            CourseViewModel course = CourseDTO.MapToView(CourseService.GetCourse(id));
-            return View(course);
+            DepartamentViewModel departament = DepartamentDTO.MapToView(DepartamentService.GetDepartament(id));
+            return View(departament);
         }
 
-        // GET: Courses/Create
+        // GET: Departaments/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Courses/Create
+        // POST: Departaments/Create
         [HttpPost]
-        public ActionResult Create(CourseViewModel model)
+        public ActionResult Create(DepartamentViewModel model)
         {
             try
             {
-                bool result = CourseService.CreateCourse(CourseDTO.Map(model));
+                bool result = DepartamentService.CreateDepartament(DepartamentDTO.Map(model));
                 if (result)
                 {
                     return RedirectToAction("Index");
@@ -60,20 +60,20 @@ namespace UniversityMVC.Controllers
             }
         }
 
-        // GET: Courses/Edit/5
+        // GET: Departaments/Edit/5
         public ActionResult Edit(int id)
         {
-            CourseViewModel course = CourseDTO.MapToView(CourseService.GetCourse(id));
-            return View(course);
+            DepartamentViewModel departament = DepartamentDTO.MapToView(DepartamentService.GetDepartament(id));
+            return View(departament);
         }
 
-        // POST: Courses/Edit/5
+        // POST: Departaments/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, CourseViewModel model)
+        public ActionResult Edit(int id, DepartamentViewModel model)
         {
             try
             {
-                bool result = CourseService.EditCourse(id, CourseDTO.Map(model));
+                bool result = DepartamentService.EditDepartament(id, DepartamentDTO.Map(model));
                 if (result)
                 {
                     return RedirectToAction("Index");
@@ -85,28 +85,15 @@ namespace UniversityMVC.Controllers
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
 
-        // GET: Courses/Delete/5
+        // GET: Departaments/Delete/5
         public ActionResult Delete(int id)
         {
-            bool result = CourseService.DeleteCourse(id);
+            bool result = DepartamentService.DeleteDepartament(id);
             return RedirectToAction("Index");
-        }
-
-        public ActionResult List()
-        {
-            try
-            {
-                var list = CourseService.GetAllCourses();
-                return View(list);
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

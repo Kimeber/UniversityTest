@@ -12,7 +12,8 @@ namespace DataLayer
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+    using SqlProviderServices = System.Data.Entity.SqlServer.SqlProviderServices;
+
     public partial class ModelContainer : DbContext
     {
         public ModelContainer()
@@ -30,7 +31,7 @@ namespace DataLayer
         public virtual DbSet<Departament> Departament { get; set; }
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<Student> Student { get; set; }
-        public virtual DbSet<Teacher> Teacher { get; set; }
         public virtual DbSet<Subject> Subject { get; set; }
+        public virtual DbSet<Teacher> Teacher { get; set; }
     }
 }

@@ -29,7 +29,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="DirectorId" Type="int" Nullable="false" />
+          <Property Name="DirectorId" Type="int" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -100,7 +100,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Departament_Teacher">
-          <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
           <End Role="Departament" Type="Self.Departament" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Teacher">
@@ -210,14 +210,23 @@
           <EntitySet Name="Departament" EntityType="Model.Departament" />
           <EntitySet Name="Person" EntityType="Model.Person" />
           <EntitySet Name="Student" EntityType="Model.Student" />
+          <EntitySet Name="Subject" EntityType="Model.Subject" />
           <EntitySet Name="Teacher" EntityType="Model.Teacher" />
           <AssociationSet Name="FK_ClassStudent_Student" Association="Model.FK_ClassStudent_Student">
             <End Role="Student" EntitySet="Student" />
             <End Role="ClassStudent" EntitySet="ClassStudent" />
           </AssociationSet>
+          <AssociationSet Name="FK_ClassStudent_Subject" Association="Model.FK_ClassStudent_Subject">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="ClassStudent" EntitySet="ClassStudent" />
+          </AssociationSet>
           <AssociationSet Name="FK_Course_Departament" Association="Model.FK_Course_Departament">
             <End Role="Departament" EntitySet="Departament" />
             <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subject_Course" Association="Model.FK_Subject_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Subject" EntitySet="Subject" />
           </AssociationSet>
           <AssociationSet Name="FK_Departament_Teacher" Association="Model.FK_Departament_Teacher">
             <End Role="Teacher" EntitySet="Teacher" />
@@ -231,15 +240,6 @@
             <End Role="Person" EntitySet="Person" />
             <End Role="Teacher" EntitySet="Teacher" />
           </AssociationSet>
-          <EntitySet Name="Subject" EntityType="Model.Subject" />
-          <AssociationSet Name="FK_ClassStudent_Subject" Association="Model.FK_ClassStudent_Subject">
-            <End Role="Subject" EntitySet="Subject" />
-            <End Role="ClassStudent" EntitySet="ClassStudent" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Subject_Course" Association="Model.FK_Subject_Course">
-            <End Role="Course" EntitySet="Course" />
-            <End Role="Subject" EntitySet="Subject" />
-          </AssociationSet>
           <AssociationSet Name="FK_Subject_Teacher" Association="Model.FK_Subject_Teacher">
             <End Role="Teacher" EntitySet="Teacher" />
             <End Role="Subject" EntitySet="Subject" />
@@ -250,10 +250,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectId" Type="Int32" Nullable="false" />
           <Property Name="StudentId" Type="Int32" Nullable="false" />
           <Property Name="Grade" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="Student" Relationship="Model.FK_ClassStudent_Student" FromRole="ClassStudent" ToRole="Student" />
-          <Property Name="SubjectId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Subject" Relationship="Model.FK_ClassStudent_Subject" FromRole="ClassStudent" ToRole="Subject" />
         </EntityType>
         <EntityType Name="Course">
@@ -262,7 +262,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Credits" Type="Int32" Nullable="false" />
+          <Property Name="Credits" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="DepartamentId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Departament" Relationship="Model.FK_Course_Departament" FromRole="Course" ToRole="Departament" />
           <NavigationProperty Name="Subject" Relationship="Model.FK_Subject_Course" FromRole="Course" ToRole="Subject" />
@@ -273,7 +273,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DirectorId" Type="Int32" Nullable="false" />
+          <Property Name="DirectorId" Type="Int32" />
           <NavigationProperty Name="Course" Relationship="Model.FK_Course_Departament" FromRole="Departament" ToRole="Course" />
           <NavigationProperty Name="Teacher" Relationship="Model.FK_Departament_Teacher" FromRole="Departament" ToRole="Teacher" />
         </EntityType>
@@ -296,6 +296,17 @@
           <Property Name="nReg" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ClassStudent" Relationship="Model.FK_ClassStudent_Student" FromRole="Student" ToRole="ClassStudent" />
           <NavigationProperty Name="Person" Relationship="Model.FK_Student_Person" FromRole="Student" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseId" Type="Int32" Nullable="false" />
+          <Property Name="TeacherId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ClassStudent" Relationship="Model.FK_ClassStudent_Subject" FromRole="Subject" ToRole="ClassStudent" />
+          <NavigationProperty Name="Course" Relationship="Model.FK_Subject_Course" FromRole="Subject" ToRole="Course" />
+          <NavigationProperty Name="Teacher" Relationship="Model.FK_Subject_Teacher" FromRole="Subject" ToRole="Teacher" />
         </EntityType>
         <EntityType Name="Teacher">
           <Key>
@@ -320,6 +331,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ClassStudent_Subject">
+          <End Type="Model.Subject" Role="Subject" Multiplicity="1" />
+          <End Type="Model.ClassStudent" Role="ClassStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClassStudent">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Course_Departament">
           <End Type="Model.Departament" Role="Departament" Multiplicity="1" />
           <End Type="Model.Course" Role="Course" Multiplicity="*" />
@@ -332,8 +355,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Subject_Course">
+          <End Type="Model.Course" Role="Course" Multiplicity="1" />
+          <End Type="Model.Subject" Role="Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Departament_Teacher">
-          <End Type="Model.Teacher" Role="Teacher" Multiplicity="1" />
+          <End Type="Model.Teacher" Role="Teacher" Multiplicity="0..1" />
           <End Type="Model.Departament" Role="Departament" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Teacher">
@@ -368,41 +403,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Subject">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CourseId" Type="Int32" Nullable="false" />
-          <Property Name="TeacherId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ClassStudent" Relationship="Model.FK_ClassStudent_Subject" FromRole="Subject" ToRole="ClassStudent" />
-          <NavigationProperty Name="Course" Relationship="Model.FK_Subject_Course" FromRole="Subject" ToRole="Course" />
-          <NavigationProperty Name="Teacher" Relationship="Model.FK_Subject_Teacher" FromRole="Subject" ToRole="Teacher" />
-        </EntityType>
-        <Association Name="FK_ClassStudent_Subject">
-          <End Type="Model.Subject" Role="Subject" Multiplicity="1" />
-          <End Type="Model.ClassStudent" Role="ClassStudent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Subject">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ClassStudent">
-              <PropertyRef Name="SubjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Subject_Course">
-          <End Type="Model.Course" Role="Course" Multiplicity="1" />
-          <End Type="Model.Subject" Role="Subject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Course">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Subject">
-              <PropertyRef Name="CourseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Subject_Teacher">
           <End Type="Model.Teacher" Role="Teacher" Multiplicity="1" />
           <End Type="Model.Subject" Role="Subject" Multiplicity="*" />
@@ -426,9 +426,9 @@
           <EntitySetMapping Name="ClassStudent">
             <EntityTypeMapping TypeName="Model.ClassStudent">
               <MappingFragment StoreEntitySet="ClassStudent">
-                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
                 <ScalarProperty Name="Grade" ColumnName="Grade" />
                 <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -470,20 +470,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Teacher">
-            <EntityTypeMapping TypeName="Model.Teacher">
-              <MappingFragment StoreEntitySet="Teacher">
-                <ScalarProperty Name="Salary" ColumnName="Salary" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Subject">
             <EntityTypeMapping TypeName="Model.Subject">
               <MappingFragment StoreEntitySet="Subject">
                 <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
                 <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teacher">
+            <EntityTypeMapping TypeName="Model.Teacher">
+              <MappingFragment StoreEntitySet="Teacher">
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -15,9 +15,9 @@ namespace DataLayer
     public partial class ClassStudent
     {
         public int Id { get; set; }
+        public int SubjectId { get; set; }
         public int StudentId { get; set; }
         public Nullable<decimal> Grade { get; set; }
-        public int SubjectId { get; set; }
     
         public virtual Student Student { get; set; }
         public virtual Subject Subject { get; set; }

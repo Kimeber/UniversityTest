@@ -22,7 +22,7 @@ namespace DataLayer
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public int DirectorId { get; set; }
+        public Nullable<int> DirectorId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Course> Course { get; set; }

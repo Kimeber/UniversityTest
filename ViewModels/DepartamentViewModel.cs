@@ -12,6 +12,6 @@ namespace ViewModels
 
         public string Name { get; set; }
 
-        public int DirectorID { get; set; }
+        public int? DirectorID { get; set; }
     }
 }
