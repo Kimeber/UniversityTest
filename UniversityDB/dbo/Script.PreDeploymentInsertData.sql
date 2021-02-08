@@ -15,3 +15,5 @@ INSERT INTO [dbo].[Departament]([Name],[DirectorId]) VALUES('Eletronical Departa
 INSERT INTO [dbo].[Departament]([Name],[DirectorId]) VALUES('Biology Departament', null)
 INSERT INTO [dbo].[Departament]([Name],[DirectorId]) VALUES('Chemistry Departament', null)
 INSERT INTO [dbo].[Course]([Title],[Credits],[DepartamentId]) VALUES('Computer Science and Engineering', 180.0, 1)
+INSERT INTO [dbo].Person ([Name],[Birthday]) VALUES ('John DOe', '1990-01-01')
+INSERT INTO [dbo].[Teacher] ([PersonId],[Salary]) VALUES (1,2000)

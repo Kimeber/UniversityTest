@@ -135,6 +135,7 @@
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\DepartamentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SubjectsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -297,6 +298,10 @@
     <Content Include="Views\Departaments\Index.cshtml" />
     <Content Include="Views\Departaments\Edit.cshtml" />
     <Content Include="Views\Departaments\Details.cshtml" />
+    <Content Include="Views\Subjects\Index.cshtml" />
+    <Content Include="Views\Subjects\Create.cshtml" />
+    <Content Include="Views\Subjects\Details.cshtml" />
+    <Content Include="Views\Subjects\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
