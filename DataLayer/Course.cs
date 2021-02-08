@@ -22,7 +22,7 @@ namespace DataLayer
     
         public int Id { get; set; }
         public string Title { get; set; }
-        public int Credits { get; set; }
+        public decimal Credits { get; set; }
         public int DepartamentId { get; set; }
     
         public virtual Departament Departament { get; set; }

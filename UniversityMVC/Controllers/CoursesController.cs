@@ -1,8 +1,11 @@
-﻿using System;
+﻿using DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using UniversityService;
+using ViewModels;
 
 namespace UniversityMVC.Controllers
 {
@@ -17,7 +20,8 @@ namespace UniversityMVC.Controllers
         // GET: Courses/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            CourseViewModel course = CourseDTO.MapToView(CourseService.GetCourse(id));
+            return View(course);
         }
 
         // GET: Courses/Create
@@ -28,13 +32,19 @@ namespace UniversityMVC.Controllers
 
         // POST: Courses/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(CourseViewModel model)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                bool result = CourseService.CreateCourse(CourseDTO.Map(model));
+                if (result)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(model);
+                }
             }
             catch
             {
@@ -67,6 +77,7 @@ namespace UniversityMVC.Controllers
         // GET: Courses/Delete/5
         public ActionResult Delete(int id)
         {
+            bool result = CourseService.DeleteCourse(id);
             return View();
         }
 

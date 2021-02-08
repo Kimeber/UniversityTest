@@ -16,7 +16,5 @@ namespace Models
         public Teacher Responsible { get; set; }
 
         public Departament Departament { get; set; }
-
-        public List<CourseStudent> Students { get; set; }
     }
 }

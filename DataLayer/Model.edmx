@@ -20,7 +20,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Credits" Type="int" Nullable="false" />
+          <Property Name="Credits" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="DepartamentId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Departament">

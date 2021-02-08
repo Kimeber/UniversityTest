@@ -14,5 +14,7 @@ namespace Models
         public Course Course { get; set; }
 
         public Teacher Teacher { get; set; }
+
+        public List<SubjectStudent> Students { get; set; }
     }
 }
