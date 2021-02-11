@@ -14,6 +14,7 @@ namespace UniversityService
             {
                 Subject current = context.Subject
                     .Include("Course")
+                    .Include("Teacher")
                     .Where(x => x.Id == subjectID)
                     .SingleOrDefault();
                 if (current == null)
@@ -63,7 +64,11 @@ namespace UniversityService
             using (ModelContainer context = new ModelContainer())
             {
                 List<SubjectDTO> list = new List<SubjectDTO>();
-                var subjects = context.Subject.ToList();
+                var subjects = context.Subject
+                    .Include("Course")
+                    .Include("Teacher")
+                    .Include("Teacher.Person")
+                    .ToList();
                 foreach (Subject subject in subjects)
                 {
                     list.Add(SubjectDTO.Map(subject));

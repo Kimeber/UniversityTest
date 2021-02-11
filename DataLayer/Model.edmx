@@ -54,6 +54,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CourseId" Type="int" Nullable="false" />
           <Property Name="TeacherId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Teacher">
           <Key>
@@ -307,6 +308,7 @@
           <NavigationProperty Name="ClassStudent" Relationship="Model.FK_ClassStudent_Subject" FromRole="Subject" ToRole="ClassStudent" />
           <NavigationProperty Name="Course" Relationship="Model.FK_Subject_Course" FromRole="Subject" ToRole="Course" />
           <NavigationProperty Name="Teacher" Relationship="Model.FK_Subject_Teacher" FromRole="Subject" ToRole="Teacher" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Teacher">
           <Key>
@@ -473,6 +475,7 @@
           <EntitySetMapping Name="Subject">
             <EntityTypeMapping TypeName="Model.Subject">
               <MappingFragment StoreEntitySet="Subject">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
                 <ScalarProperty Name="CourseId" ColumnName="CourseId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

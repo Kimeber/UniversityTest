@@ -14,6 +14,8 @@ namespace ViewModels
 
         public int TeacherID { get; set; }
 
+        public string Name { get; set; }
+
         public List<ClassStudentViewModel> Students { get; set; }
     }
 }

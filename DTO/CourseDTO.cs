@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using DataLayer;
 using ViewModels;
 
@@ -10,6 +11,7 @@ namespace DTO
         public decimal Credits { get; set; }
         public int DepartamentID { get; set; }
         public string Title { get; set; }
+
         public Departament Departament { get; set; }
 
         public static Course Map(CourseDTO courseDTO)

@@ -4,12 +4,12 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Departaments</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create", "Departaments")" class="btn btn-success"><i class="fa fa-fw  fa-plus-circle fa-lg"></i> Create New</a>
 </p>
-<table class="table">
+<table class="table table-secondary table-striped table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -17,17 +17,19 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a href="@Url.Action("Details", "Departaments", new { id = item.ID })" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Details"><i class="fa fa-fw fa-info-circle"></i></a> |
+                <a href="@Url.Action("Edit", "Departaments", new { id = item.ID })" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fa fa-fw fa-edit"></i></a> |
+                <a href="@Url.Action("Delete", "Departaments", new { id = item.ID })" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="fa fa-fw fa-trash"></i></a>
+            </td>
+        </tr>
+    }
 
 </table>
+@Html.Partial("_Script")

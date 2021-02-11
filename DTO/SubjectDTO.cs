@@ -11,11 +11,13 @@ namespace DTO
 
         public int CourseID { get; set; }
 
-        public CourseDTO Course { get; set; }
+        public Course Course { get; set; }
 
         public int TeacherID { get; set; }
 
-        public Models.Teacher Teacher { get; set; }
+        public Teacher Teacher { get; set; }
+
+        public string Name { get; set; }
 
         public List<Models.SubjectStudent> Students { get; set; }
 
@@ -26,7 +28,9 @@ namespace DTO
                 Id = subject.ID,
                 CourseId = subject.CourseID,
                 TeacherId = subject.TeacherID,
-                //Course = CourseDTO.Map(subject.Course)
+                Course = subject.Course,
+                Teacher = subject.Teacher,
+                Name = subject.Name
                 //TODO Missing students
             };
         }
@@ -38,7 +42,9 @@ namespace DTO
                 ID = subject.Id,
                 TeacherID = subject.TeacherId,
                 CourseID = subject.CourseId,
-                //Course = CourseDTO.Map(subject.Course)
+                Course = subject.Course,
+                Teacher = subject.Teacher,
+                Name = subject.Name
                 //TODO Missing students
             };
         }
@@ -49,7 +55,8 @@ namespace DTO
             {
                 ID = subject.SubjectID,
                 CourseID = subject.CourseID,
-                TeacherID = subject.TeacherID
+                TeacherID = subject.TeacherID,
+                Name = subject.Name
                 //TODO Missing students
             };
         }
@@ -64,7 +71,8 @@ namespace DTO
             {
                 SubjectID = subject.ID,
                 TeacherID = subject.TeacherID,
-                CourseID = subject.CourseID
+                CourseID = subject.CourseID,
+                Name = subject.Name
                 //TODO Missing students
             };
         }

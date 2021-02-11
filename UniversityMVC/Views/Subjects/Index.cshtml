@@ -4,36 +4,47 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Subjects</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create", "Subjects")" class="btn btn-success"><i class="fa fa-fw  fa-plus-circle fa-lg"></i> Create New</a>
 </p>
-<table class="table">
+
+<input class="form-control" id="searchInput" type="text" placeholder="Filter by course...">
+
+<table class="table table-secondary table-striped table-hover" id="tableSubject">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CourseID)
+            @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TeacherID)
+            @Html.DisplayNameFor(model => model.Course)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Teacher)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TeacherID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+<tr class="tr-searchable">
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td class="td-searchable">
+        @Html.DisplayFor(modelItem => item.Course.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Teacher.Person.Name)
+    </td>
+    <td>
+        <a href="@Url.Action("Details", "Subjects", new { id = item.ID })" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Details"><i class="fa fa-fw fa-info-circle"></i></a> |
+        <a href="@Url.Action("Edit", "Subjects", new { id = item.ID })" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fa fa-fw fa-edit"></i></a> |
+        <a href="@Url.Action("Delete", "Subjects", new { id = item.ID })" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="fa fa-fw fa-trash"></i></a>
+    </td>
+</tr>
+    }
 
 </table>
+@Html.Partial("_Script")

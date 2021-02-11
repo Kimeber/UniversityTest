@@ -4,42 +4,44 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Courses</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create", "Courses")" class="btn btn-success"><i class="fa fa-fw  fa-plus-circle fa-lg"></i> Create New</a>
 </p>
-<table class="table">
+<table class="table table-secondary table-striped table-hover">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Credits)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartamentID)
-        </th>
-        <th>
+        <th class="col-xs-6">
             @Html.DisplayNameFor(model => model.Title)
         </th>
-        <th></th>
+        <th class="col-xs-3">
+            @Html.DisplayNameFor(model => model.Departament)
+        </th>
+        <th class="col-xs-2">
+            @Html.DisplayNameFor(model => model.Credits)
+        </th>
+        <th class="col-xs-1"></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Credits)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartamentID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="col-xs-6">
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td class="col-xs-3">
+                @Html.DisplayFor(modelItem => item.Departament.Name)
+            </td>
+            <td class="col-xs-2">
+                @Html.DisplayFor(modelItem => item.Credits)
+            </td>
+            <td class="col-xs-1 align-right">
+                <a href="@Url.Action("Details", "Courses", new { id = item.ID })" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Details"><i class="fa fa-fw fa-info-circle"></i></a> |
+                <a href="@Url.Action("Edit", "Courses", new { id = item.ID })" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fa fa-fw fa-edit"></i></a> |
+                <a href="@Url.Action("Delete", "Courses", new { id = item.ID })" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="fa fa-fw fa-trash"></i></a> 
+            </td>
+        </tr>
+    }
 
 </table>
+@Html.Partial("_Script")
