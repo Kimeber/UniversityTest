@@ -19,6 +19,8 @@ namespace DTO
 
         public string Name { get; set; }
 
+        public decimal Credits { get; set; }
+
         public List<Models.SubjectStudent> Students { get; set; }
 
         public static Subject Map(SubjectDTO subject)
@@ -30,7 +32,8 @@ namespace DTO
                 TeacherId = subject.TeacherID,
                 Course = subject.Course,
                 Teacher = subject.Teacher,
-                Name = subject.Name
+                Name = subject.Name,
+                Credits = subject.Credits
                 //TODO Missing students
             };
         }
@@ -44,7 +47,8 @@ namespace DTO
                 CourseID = subject.CourseId,
                 Course = subject.Course,
                 Teacher = subject.Teacher,
-                Name = subject.Name
+                Name = subject.Name,
+                Credits = subject.Credits
                 //TODO Missing students
             };
         }
@@ -56,7 +60,8 @@ namespace DTO
                 ID = subject.SubjectID,
                 CourseID = subject.CourseID,
                 TeacherID = subject.TeacherID,
-                Name = subject.Name
+                Name = subject.Name,
+                Credits = subject.Credits
                 //TODO Missing students
             };
         }
@@ -72,7 +77,9 @@ namespace DTO
                 SubjectID = subject.ID,
                 TeacherID = subject.TeacherID,
                 CourseID = subject.CourseID,
-                Name = subject.Name
+                Name = subject.Name,
+                Teacher = subject?.Teacher?.Person?.Name,
+                Credits = subject.Credits
                 //TODO Missing students
             };
         }

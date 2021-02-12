@@ -24,6 +24,7 @@ namespace DataLayer
         public int CourseId { get; set; }
         public int TeacherId { get; set; }
         public string Name { get; set; }
+        public decimal Credits { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClassStudent> ClassStudent { get; set; }

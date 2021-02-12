@@ -15,6 +15,7 @@ namespace UniversityService
                 Subject current = context.Subject
                     .Include("Course")
                     .Include("Teacher")
+                    .Include("Teacher.Person")
                     .Where(x => x.Id == subjectID)
                     .SingleOrDefault();
                 if (current == null)
@@ -90,6 +91,8 @@ namespace UniversityService
                 }
                 old.CourseId = subject.CourseID;
                 old.TeacherId = subject.TeacherID;
+                old.Credits = subject.Credits;
+                old.Name = subject.Name;
                 context.SaveChanges();
                 return true;
             }

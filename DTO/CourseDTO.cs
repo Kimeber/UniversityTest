@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using DataLayer;
 using ViewModels;
@@ -11,6 +12,7 @@ namespace DTO
         public decimal Credits { get; set; }
         public int DepartamentID { get; set; }
         public string Title { get; set; }
+        public List<SubjectDTO> Subjects { get; set; }
 
         public Departament Departament { get; set; }
 
@@ -28,13 +30,19 @@ namespace DTO
 
         public static CourseDTO Map(Course course)
         {
+            List<SubjectDTO> list = new List<SubjectDTO>();
+            foreach(var item in course.Subject)
+            {
+                list.Add(SubjectDTO.Map(item));
+            }
             return new CourseDTO
             {
                 Credits = course.Credits,
                 DepartamentID = course.DepartamentId,
                 Departament = course.Departament,
                 ID = course.Id,
-                Title = course.Title
+                Title = course.Title,
+                Subjects = list
             };
         }
 
@@ -55,12 +63,19 @@ namespace DTO
             {
                 return null;
             }
+            List<SubjectViewModel> list = new List<SubjectViewModel>();
+            foreach (var item in course.Subjects)
+            {
+                list.Add(SubjectDTO.MapToView(item));
+            }
             return new CourseViewModel
             {
                 CourseID = course.ID,
                 Credits = course.Credits,
                 DepartamentID = course.DepartamentID,
-                Title = course.Title
+                Departament = course.Departament.Name,
+                Title = course.Title,
+                Subjects = list
             };
         }
     }

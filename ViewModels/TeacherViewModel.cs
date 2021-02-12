@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ViewModels
 {
-    public class StudentViewModel : PersonViewModel
+    public class TeacherViewModel : PersonViewModel
     {
-        public string RegistrationNumber { get; set; }
+        public decimal Salary { get; set; }
     }
 }

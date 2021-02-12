@@ -16,6 +16,10 @@ namespace ViewModels
 
         public string Name { get; set; }
 
+        public string Teacher { get; set; }
+
+        public decimal Credits { get; set; }
+
         public List<ClassStudentViewModel> Students { get; set; }
     }
 }

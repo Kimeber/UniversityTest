@@ -9,13 +9,14 @@ using ViewModels;
 
 namespace UniversityMVC.Controllers
 {
-    public class SubjectsController : Controller
+    public class PersonsController : Controller
     {
-        // GET: Subjects
+        // GET: Person
         public ActionResult Index()
         {
-            try { 
-                var list = SubjectService.GetAllSubjects();
+            try
+            {
+                var list = PersonService.GetAllPersons();
                 return View(list);
             }
             catch
@@ -24,30 +25,26 @@ namespace UniversityMVC.Controllers
             }
         }
 
-        // GET: Subjects/Details/5
+        // GET: Person/Details/5
         public ActionResult Details(int id)
         {
-            SubjectViewModel departament = SubjectDTO.MapToView(SubjectService.GetSubject(id));
+            PersonViewModel departament = PersonDTO.MapToView(PersonService.GetPerson(id));
             return View(departament);
         }
 
-        // GET: Subjects/Create
-        public ActionResult Create(int courseId = 0)
+        // GET: Person/Create
+        public ActionResult Create()
         {
-            if (courseId > 0)
-            {
-                return View(new SubjectViewModel { CourseID = courseId });
-            }
             return View();
         }
 
-        // POST: Subjects/Create
+        // POST: Person/Create
         [HttpPost]
-        public ActionResult Create(SubjectViewModel model)
+        public ActionResult Create(PersonViewModel model)
         {
             try
             {
-                bool result = SubjectService.CreateSubject(SubjectDTO.Map(model));
+                bool result = PersonService.CreatePerson(PersonDTO.Map(model));
                 if (result)
                 {
                     return RedirectToAction("Index");
@@ -63,20 +60,20 @@ namespace UniversityMVC.Controllers
             }
         }
 
-        // GET: Subjects/Edit/5
+        // GET: Person/Edit/5
         public ActionResult Edit(int id)
         {
-            SubjectViewModel departament = SubjectDTO.MapToView(SubjectService.GetSubject(id));
-            return View(departament);
+            PersonViewModel person = PersonDTO.MapToView(PersonService.GetPerson(id));
+            return View(person);
         }
 
-        // POST: Subjects/Edit/5
+        // POST: Person/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, SubjectViewModel model)
+        public ActionResult Edit(int id, PersonViewModel model)
         {
             try
             {
-                bool result = SubjectService.EditSubject(id, SubjectDTO.Map(model));
+                bool result = PersonService.EditPerson(id, PersonDTO.Map(model));
                 if (result)
                 {
                     return RedirectToAction("Index");
@@ -92,10 +89,10 @@ namespace UniversityMVC.Controllers
             }
         }
 
-    // GET: Subjects/Delete/5
+        // GET: Person/Delete/5
         public ActionResult Delete(int id)
         {
-            bool result = SubjectService.DeleteSubject(id);
+            bool result = PersonService.DeletePerson(id);
             return RedirectToAction("Index");
         }
     }

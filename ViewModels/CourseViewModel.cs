@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ViewModels
 {
@@ -11,5 +12,9 @@ namespace ViewModels
         public decimal Credits { get; set; }
 
         public int DepartamentID { get; set; }
+
+        public string Departament { get; set; }
+
+        public List<SubjectViewModel> Subjects { get; set; }
     }
 }

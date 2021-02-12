@@ -6,35 +6,31 @@ using System.Linq;
 
 namespace UniversityService
 {
-    public class CourseService
+    public class PersonService
     {
-        public static CourseDTO GetCourse(int CourseID)
+        public static PersonDTO GetPerson(int PersonID)
         {
             using(ModelContainer context = new ModelContainer())
             {
-                Course current = context.Course
-                    .Include("Departament")
-                    .Include("Subject")
-                    .Include("Subject.Teacher")
-                    .Include("Subject.Teacher.Person")
-                    .Where(x => x.Id == CourseID)
+                Person current = context.Person
+                    .Where(x => x.Id == PersonID)
                     .SingleOrDefault();
                 if (current == null)
                 {
                     return null;
                 }
-                return CourseDTO.Map(current);
+                return PersonDTO.Map(current);
             }
         }
 
-        public static bool CreateCourse(CourseDTO courseDTO)
+        public static bool CreatePerson(PersonDTO personDTO)
         {
             try
             {
                 using (ModelContainer context = new ModelContainer())
                 {
-                    Course course = CourseDTO.Map(courseDTO);
-                    context.Course.Add(course);
+                    Person person = PersonDTO.Map(personDTO);
+                    context.Person.Add(person);
                     context.SaveChanges();
                     return true;
                 }
@@ -45,50 +41,49 @@ namespace UniversityService
             }
         }
 
-        public static bool DeleteCourse(int id)
+        public static bool DeletePerson(int id)
         {
             using (ModelContainer context = new ModelContainer())
             {
-                Course current = context.Course
+                Person current = context.Person
                     .Where(x => x.Id == id)
                     .SingleOrDefault();
                 if (current == null){
                     return false;
                 }
-                context.Course.Remove(current);
+                context.Person.Remove(current);
                 context.SaveChanges();
                 return true;
             }
         }
 
-        public static List<CourseDTO> GetAllCourses()
+        public static List<PersonDTO> GetAllPersons()
         {
             using (ModelContainer context = new ModelContainer())
             {
-                List<CourseDTO> list = new List<CourseDTO>();
-                var courses = context.Course.ToList();
-                foreach (Course course in courses)
+                List<PersonDTO> list = new List<PersonDTO>();
+                var persons = context.Person.ToList();
+                foreach (Person person in persons)
                 {
-                    list.Add(CourseDTO.Map(course));
+                    list.Add(PersonDTO.Map(person));
                 }
                 return list;
             }
         }
 
-        public static bool EditCourse(int id, CourseDTO course)
+        public static bool EditPerson(int id, PersonDTO person)
         {
             using (ModelContainer context = new ModelContainer())
             {
-                Course old = context.Course
+                Person old = context.Person
                     .Where(x => x.Id == id)
                     .SingleOrDefault();
                 if (old == null)
                 {
                     return false;
                 }
-                old.Credits = course.Credits;
-                old.Title = course.Title;
-                old.DepartamentId = course.DepartamentID;
+                old.Name = person.Name;
+                old.Birthday = person.BirthDay;
                 context.SaveChanges();
                 return true;
             }

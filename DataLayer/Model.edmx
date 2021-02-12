@@ -55,6 +55,7 @@
           <Property Name="CourseId" Type="int" Nullable="false" />
           <Property Name="TeacherId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Credits" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Teacher">
           <Key>
@@ -309,6 +310,7 @@
           <NavigationProperty Name="Course" Relationship="Model.FK_Subject_Course" FromRole="Subject" ToRole="Course" />
           <NavigationProperty Name="Teacher" Relationship="Model.FK_Subject_Teacher" FromRole="Subject" ToRole="Teacher" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Credits" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Teacher">
           <Key>
@@ -475,6 +477,7 @@
           <EntitySetMapping Name="Subject">
             <EntityTypeMapping TypeName="Model.Subject">
               <MappingFragment StoreEntitySet="Subject">
+                <ScalarProperty Name="Credits" ColumnName="Credits" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
                 <ScalarProperty Name="CourseId" ColumnName="CourseId" />
