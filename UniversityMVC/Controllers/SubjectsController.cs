@@ -27,8 +27,8 @@ namespace UniversityMVC.Controllers
         // GET: Subjects/Details/5
         public ActionResult Details(int id)
         {
-            SubjectViewModel departament = SubjectDTO.MapToView(SubjectService.GetSubject(id));
-            return View(departament);
+            SubjectViewModel model = SubjectDTO.MapToView(SubjectService.GetSubject(id));
+            return View(model);
         }
 
         // GET: Subjects/Create

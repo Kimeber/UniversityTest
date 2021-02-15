@@ -18,8 +18,12 @@ namespace ViewModels
 
         public string Teacher { get; set; }
 
+        public string Course { get; set; }
+
         public decimal Credits { get; set; }
 
-        public List<ClassStudentViewModel> Students { get; set; }
+        public decimal Average { get; set; }
+
+        public List<ClassStudentViewModel> ClassStudents { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DataLayer;
 using ViewModels;
 
@@ -11,17 +12,20 @@ namespace DTO
 
         public int CourseID { get; set; }
 
-        public Course Course { get; set; }
-
         public int TeacherID { get; set; }
-
-        public Teacher Teacher { get; set; }
-
-        public string Name { get; set; }
 
         public decimal Credits { get; set; }
 
-        public List<Models.SubjectStudent> Students { get; set; }
+        public decimal Average { get; set; }
+
+        public string Name { get; set; }
+
+        public Course Course { get; set; }
+
+        public Teacher Teacher { get; set; }
+
+        public List<ClassStudentDTO> ClassStudents { get; set; }
+
 
         public static Subject Map(SubjectDTO subject)
         {
@@ -30,26 +34,30 @@ namespace DTO
                 Id = subject.ID,
                 CourseId = subject.CourseID,
                 TeacherId = subject.TeacherID,
-                Course = subject.Course,
-                Teacher = subject.Teacher,
-                Name = subject.Name,
-                Credits = subject.Credits
-                //TODO Missing students
+                Credits = subject.Credits,
+                Name = subject.Name
             };
         }
 
         public static SubjectDTO Map(Subject subject)
         {
+            List<ClassStudentDTO> list = new List<ClassStudentDTO>();
+            foreach (var item in subject.ClassStudent)
+            {
+                list.Add(ClassStudentDTO.Map(item));
+            }
+
             return new SubjectDTO
             {
                 ID = subject.Id,
                 TeacherID = subject.TeacherId,
                 CourseID = subject.CourseId,
+                Credits = subject.Credits,
+                Name = subject.Name,
                 Course = subject.Course,
                 Teacher = subject.Teacher,
-                Name = subject.Name,
-                Credits = subject.Credits
-                //TODO Missing students
+                ClassStudents = list,
+                Average = Common.Functions.CalculateAverage(subject.ClassStudent.ToList())
             };
         }
 
@@ -60,8 +68,8 @@ namespace DTO
                 ID = subject.SubjectID,
                 CourseID = subject.CourseID,
                 TeacherID = subject.TeacherID,
-                Name = subject.Name,
-                Credits = subject.Credits
+                Credits = subject.Credits,
+                Name = subject.Name
                 //TODO Missing students
             };
         }
@@ -72,15 +80,22 @@ namespace DTO
             {
                 return null;
             }
+            List<ClassStudentViewModel> list = new List<ClassStudentViewModel>();
+            foreach (var item in subject.ClassStudents)
+            {
+                list.Add(ClassStudentDTO.MapToView(item));
+            }
             return new SubjectViewModel
             {
                 SubjectID = subject.ID,
                 TeacherID = subject.TeacherID,
                 CourseID = subject.CourseID,
+                Credits = subject.Credits,
+                Course = subject.Course?.Title,
+                Teacher = subject.Teacher?.Person?.Name,
                 Name = subject.Name,
-                Teacher = subject?.Teacher?.Person?.Name,
-                Credits = subject.Credits
-                //TODO Missing students
+                ClassStudents = list,
+                Average = Common.Functions.CalculateAverage(list)
             };
         }
     }

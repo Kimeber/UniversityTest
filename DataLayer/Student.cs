@@ -23,6 +23,8 @@ namespace DataLayer
         public int Id { get; set; }
         public int PersonId { get; set; }
         public int nReg { get; set; }
+        public int CourseID { get; set; }
+        public Nullable<decimal> Grade { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClassStudent> ClassStudent { get; set; }

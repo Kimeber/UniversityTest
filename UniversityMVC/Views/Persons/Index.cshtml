@@ -7,7 +7,7 @@
 <h2>Persons</h2>
 
 <p>
-    <a href="@Url.Action("Create", "Persons")" class="btn btn-success disabled"><i class="fa fa-fw  fa-plus-circle fa-lg"></i> Create New</a>
+    <a href="@Url.Action("Create", "Persons")" class="btn btn-success"><i class="fa fa-fw  fa-plus-circle fa-lg"></i> Create New</a>
 </p>
 <table class="table table-secondary table-striped table-hover">
     <tr>
@@ -32,12 +32,19 @@
         @Html.DisplayFor(modelItem => item.BirthDay)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.TypeName)
+        @if(item.Type == 1)
+        {
+            @Html.Raw("Teacher")
+        }
+        @if(item.Type == 2)
+        {
+            @Html.Raw("Student")
+        }
     </td>
     <td>
-        <a href="@Url.Action("Details", "Persons", new { id = item.ID })" class="btn btn-info disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="Details"><i class="fa fa-fw fa-info-circle"></i></a> |
-        <a href="@Url.Action("Edit", "Persons", new { id = item.ID })" class="btn btn-warning disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fa fa-fw fa-edit"></i></a> |
-        <a href="@Url.Action("Delete", "Persons", new { id = item.ID })" class="btn btn-danger disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="fa fa-fw fa-trash"></i></a>
+        <a href="@Url.Action("Details", "Persons", new { id = item.ID })" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Details"><i class="fa fa-fw fa-info-circle"></i></a> |
+        <a href="@Url.Action("Edit", "Persons", new { id = item.ID })" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fa fa-fw fa-edit"></i></a> |
+        <a href="@Url.Action("Delete", "Persons", new { id = item.ID })" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="fa fa-fw fa-trash"></i></a>
     </td>
 </tr>
 }

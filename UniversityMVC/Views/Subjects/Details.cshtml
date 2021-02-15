@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>SubjectViewModel</h4>
+    <h4>Subject</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -19,27 +19,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SubjectID)
+            @Html.DisplayNameFor(model => model.Course)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SubjectID)
+            @Html.DisplayFor(model => model.Course)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CourseID)
+            @Html.DisplayNameFor(model => model.Teacher)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CourseID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TeacherID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TeacherID)
+            @Html.DisplayFor(model => model.Teacher)
         </dd>
 
         <dt>
@@ -50,7 +42,39 @@
             @Html.DisplayFor(model => model.Credits)
         </dd>
 
+
+    <dt>
+        @Html.DisplayNameFor(model => model.ClassStudents)
+    </dt>
     </dl>
+    <table class="table table-secondary table-striped table-hover" id="tableClassStudents">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassStudents.FirstOrDefault().Student)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassStudents.FirstOrDefault().Grade)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.ClassStudents)
+        {
+            <tr class="tr-searchable">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student)
+                </td>
+                <td class="td-searchable">
+                    @Html.DisplayFor(modelItem => item.Grade)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "ClassStudents", new { id = item.ClassStudentID })" class="btn btn-warning disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fa fa-fw fa-edit"></i></a> |
+                    <a href="@Url.Action("Delete", "ClassStudents", new { id = item.ClassStudentID })" class="btn btn-danger disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="fa fa-fw fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+
+    </table>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.SubjectID }) |

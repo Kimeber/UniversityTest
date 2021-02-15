@@ -43,9 +43,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PersonId" Type="int" Nullable="false" />
           <Property Name="nReg" Type="int" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="Grade" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -298,6 +300,8 @@
           <Property Name="nReg" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ClassStudent" Relationship="Model.FK_ClassStudent_Student" FromRole="Student" ToRole="ClassStudent" />
           <NavigationProperty Name="Person" Relationship="Model.FK_Student_Person" FromRole="Student" ToRole="Person" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="Grade" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -468,6 +472,8 @@
           <EntitySetMapping Name="Student">
             <EntityTypeMapping TypeName="Model.Student">
               <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
                 <ScalarProperty Name="nReg" ColumnName="nReg" />
                 <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

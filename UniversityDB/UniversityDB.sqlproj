@@ -58,6 +58,7 @@
     <Folder Include="Properties" />
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
+    <Folder Include="Scripts" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Teacher.sql" />
@@ -67,5 +68,9 @@
     <Build Include="dbo\Tables\Departament.sql" />
     <Build Include="dbo\Tables\Course.sql" />
     <Build Include="dbo\Tables\ClassStudent.sql" />
+    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UniversityDB.publish.xml" />
   </ItemGroup>
 </Project>

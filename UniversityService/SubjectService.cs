@@ -16,6 +16,7 @@ namespace UniversityService
                     .Include("Course")
                     .Include("Teacher")
                     .Include("Teacher.Person")
+                    .Include("ClassStudent")
                     .Where(x => x.Id == subjectID)
                     .SingleOrDefault();
                 if (current == null)
@@ -69,6 +70,7 @@ namespace UniversityService
                     .Include("Course")
                     .Include("Teacher")
                     .Include("Teacher.Person")
+                    .Include("ClassStudent")
                     .ToList();
                 foreach (Subject subject in subjects)
                 {

@@ -28,14 +28,33 @@ namespace UniversityMVC.Controllers
         // GET: Person/Details/5
         public ActionResult Details(int id)
         {
-            PersonViewModel departament = PersonDTO.MapToView(PersonService.GetPerson(id));
-            return View(departament);
+            PersonViewModel person = PersonDTO.MapToView(PersonService.GetPerson(id));
+            return View(person);
         }
 
         // GET: Person/Create
         public ActionResult Create()
         {
-            return View();
+            PersonViewModel model = new PersonViewModel();
+            ViewBag.Types = new SelectList(
+                new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Choose...", Value = "0" },
+                    new SelectListItem { Text = "Teacher", Value = "1" },
+                    new SelectListItem { Text = "Student", Value = "2" },
+                }, "Value", "Text");
+
+            var courses = CourseService.GetAllCourses().OrderBy(x => x.Title);
+            List<SelectListItem> coursesItems = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Choose...", Value = "0" }
+            };
+            foreach (var item in courses)
+            {
+                coursesItems.Add(new SelectListItem { Text = item.Title, Value = item.ID.ToString() });
+            }
+            ViewBag.Courses = new SelectList(coursesItems, "Value", "Text");
+            return View(model);
         }
 
         // POST: Person/Create
@@ -64,6 +83,16 @@ namespace UniversityMVC.Controllers
         public ActionResult Edit(int id)
         {
             PersonViewModel person = PersonDTO.MapToView(PersonService.GetPerson(id));
+            var courses = CourseService.GetAllCourses().OrderBy(x => x.Title);
+            List<SelectListItem> coursesItems = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Choose...", Value = "0" }
+            };
+            foreach (var item in courses)
+            {
+                coursesItems.Add(new SelectListItem { Text = item.Title, Value = item.ID.ToString() });
+            }
+            ViewBag.Courses = new SelectList(coursesItems, "Value", "Text");
             return View(person);
         }
 
